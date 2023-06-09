@@ -26,4 +26,4 @@ curl -d '{
 }'\
      -H "Content-Type: application/json" \
      -X POST https://anhnvv1.azurewebsites.net:$PORT/predict 
-     #your application name <yourappname>goes here
+     #your application name <https://anhnvv1.azurewebsites.net>goes here
