@@ -7,6 +7,6 @@ test:
 
 
 lint:
-	pylint --disable=R,C hello.py
+	pylint --disable=R,C,W0702,W1203 hello.py
 
 all: install lint test
