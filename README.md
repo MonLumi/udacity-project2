@@ -50,50 +50,43 @@ This project will give you an opportunity to demonstrate your ability to perform
 1. Change the branch to the "main": `git checkout main`
 2. Create Webapp resource on Azure Portal or directly on Azure Cloud shell:  
 ```az webapp up -n <Your-Webapp-name> -g <Your-resource-group-name> -l <Your-preferred-location> --sku F1``` (This is free tier, you can create another plan)
-3. Change `the make_predict_azure_app.sh` file to pointed to your created App Service:
+3. Change `make_predict_azure_app.sh` file to pointed to your created App Service:
 ![Update make_predict file](./instruction/update-make-predict-file.png)
 4. Create a CD pipeline on the Azure DevOps pipeline:
 * Connect to your GitHub repo
 ![Alt text](./instruction/where-is-your-code.png)
 ![Alt text](./instruction/select-a-repository.png)
-* Connect to your Azure App Service
+* Connect to your Azure App Service (incase you create the pipeline by yourself)
 ![Alt text](./instruction/configure-your-pipeline.png)
 ![Alt text](./instruction/select-subscription.png)
 ![Alt text](./instruction/select-webapp.png)
+* Using `an Existing YAML file` (incase you want to reuse the pipeline definded)
+![Alt text](instruction/select-an-existing-yaml-file.png)
 * Update the pythonVersion variable to match your current Web App
 ![Alt text](./instruction/config-python-version.png)
-5. Save and run the pipeline. 
-
-<TODO:  Instructions for running the Python project.  How could a user with no context run this project without asking you for any help.  Include screenshots with explicit steps to create that work. Be sure to at least include the following screenshots:
-
-* Project running on Azure App Service
-
-* Project cloned into Azure Cloud Shell - PASSED
-
-* Passing tests that are displayed after running the `make all` command from the `Makefile` - PASSED
-
-* Output of a test run - PASSED
-
-* Successful deploy of the project in Azure Pipelines.  [Note the official documentation should be referred to and double checked as you setup CI/CD](https://docs.microsoft.com/en-us/azure/devops/pipelines/ecosystems/python-webapp?view=azure-devops).
-
-* Running Azure App Service from Azure Pipelines automatic deployment
-
-* Successful prediction from deployed flask app in Azure Cloud Shell.  [Use this file as a template for the deployed prediction](https://github.com/udacity/nd082-Azure-Cloud-DevOps-Starter-Code/blob/master/C2-AgileDevelopmentwithAzure/project/starter_files/flask-sklearn/make_predict_azure_app.sh).
-The output should look similar to this:
-
-```bash
-udacity@Azure:~$ ./make_predict_azure_app.sh
-Port: 443
-{"prediction":[20.35373177134412]}
-```
-
-* Output of streamed log files from deployed application
-
-> 
-
+5. Save and run the pipeline, after completed, the webapp will be ready. 
+* Pipeline result:
+![Alt text](instruction/cd-pipeline-result.png)
+* Web app result: 
+![Alt text](instruction/webapp-result.png)
+6. Verify that the pipeline can be triggered by the GitHub commit, make some change in the `app.py` file: 
+![Alt text](instruction/change-app.py-file.png)
+After commited to the main branch, the pipeline will be automatically triggered and then deploy the new content to the webapp. 
+![Alt text](instruction/cd-pipeline-result-2.png)
+![Alt text](instruction/webapp-result-by-pipeline.png)
+7. Verify the application run by call the make_predict_azure_app.sh file on the Cloud shell: `./make_predict_azure_app.sh`
+![Alt text](instruction/make-predict.png)
+8. Verify the application run by checking the log
+* On the Azure Cloud shell: `az webapp log tail -n <Your-Webapp-name> -g <Your-resource-group-name>`
+![Alt text](instruction/log-cloud-shell.png)
+* On the Web App service in Azure Portal: 
+![Alt text](instruction/log-portal.png)
 ## Enhancements
-
-<TODO: A short description of how to improve the project in the future>
+* Add the test case for the `app.py` file
+* Enhance the app.py file to directly call the make_predict_azure_app.sh on the homepage.
+* Run GitHub Actions for CD if you don't want to use the Azure DevOps Pipeline
+* Move the repository and the CI pipeline to the Azure DevOps if you want to take avantage of the native cloud CI/CD service. 
+* Can dockerize this webapp and deploy to Azure Container Instance (or AKS if you want to orchestration the containers/cluster)
 
 ## Demo 
 
